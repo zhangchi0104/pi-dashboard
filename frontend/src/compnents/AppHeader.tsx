@@ -7,7 +7,7 @@ import makeStyles from '@material-ui/core/styles/makeStyles';
 import SettingsIcon from '@material-ui/icons/Settings';
 import AppDrawer from './AppDrawer';
 import { useTypedDispatch } from '../store';
-import { toggleSidebar } from '@/store/AppbarSlice';
+import { toggleSidebar } from '@/store/appBar';
 
 const useStyles = makeStyles((theme) => ({
   title: {
