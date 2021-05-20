@@ -8,7 +8,7 @@ interface CellTextProps {
 const CellText = (props: CellTextProps) => {
   return (
     <>
-      <Typography variant="h5" align="center" component="p">
+      <Typography variant="h6" align="center" component="p">
         {props.title}
       </Typography>
       <Typography

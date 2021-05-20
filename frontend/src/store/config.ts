@@ -3,9 +3,10 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 const configSlice = createSlice({
   name: 'config',
   initialState: {
-    url: '127.0.0.1',
+    url: '192.168.50.26',
     port: 3000,
     token: '',
+    apiPath: '/api/v1'
   },
   reducers: {
     setUrl: (state, action: PayloadAction<string>) => {

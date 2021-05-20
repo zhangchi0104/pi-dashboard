@@ -9,7 +9,7 @@ import { Provider as StoreProvider } from 'react-redux';
 import { BrowserRouter as Router } from 'react-router-dom';
 import Container from '@material-ui/core/Container';
 import Routes from './routes';
-import { store } from './store';
+import store from './store';
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -35,6 +35,11 @@ const theme = createMuiTheme({
       main: '#90caf9',
       light: '#a6d4fa',
       dark: '#648dae',
+    },
+    secondary: {
+      light: '#f6a5c0',
+      main: '#f48fb1',
+      dark: '#aa647b',
     },
   },
 });
