@@ -1,12 +1,15 @@
+# @format
+
 version: '3.8'
 
 services:
-    server:
-        build:
-            context: .
-            dockerfile: Dockerfile.dev
-        ports:
-            - "3000:3000"
-        volumes:
-            - "./src:/app/src"
-            
+  server:
+    user: '1000:1000'
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    network_mode: host
+    volumes:
+      - './src:/app/src'
+      - '/etc:/hostfs/etc:ro'
+    env_file: dev.env

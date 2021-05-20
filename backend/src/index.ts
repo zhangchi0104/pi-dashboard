@@ -13,6 +13,9 @@ app.use(apiRoot);
 app.use((ctx, next) => {
   ctx.response.body = JSON.stringify(ctx.response.body);
   ctx.response.headers.contentType = 'application/json';
+  ctx.set('Access-Control-Allow-Origin', '*');
+  ctx.set('Access-Control-Allow-Methods', ['POST', 'GET', 'OPTIONS', 'PUT', 'DELETE']);
+  ctx.set('Access-Control-Allow-Headers', ['Content-Type', 'Authorization'])
   next();
 });
 

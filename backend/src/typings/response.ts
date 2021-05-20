@@ -36,7 +36,11 @@ interface _DiskResponseItem {
   mountPoint: string;
 
 }
-export type DiskResponse = _DiskResponseItem[];
+export interface DiskResponse {
+  usage: _DiskResponseItem[],
+  type: string,
+  interface: string
+}
 
 export interface MetaResponse {
   os: string,
