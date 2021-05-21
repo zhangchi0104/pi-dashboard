@@ -72,7 +72,7 @@ const Summary = () => {
         <Divider />
         <div className={classes.summaryContent}>
           <Typography variant="body1" align="center" color="textSecondary">
-            Disk Usage
+            Disk Used
           </Typography>
           <Typography variant="h6" align="center">
             {metaInfo?.diskUsage + '%' || 'Loading'}
