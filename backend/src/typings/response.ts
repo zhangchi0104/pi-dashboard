@@ -28,6 +28,16 @@ export interface CpuResponse {
   }
 }
 
+export interface CpuLoadResponse {
+  clockSpeed: number,
+  temperature: number,
+  load: number
+}
+
+export interface MemLoadResponse {
+  used: number
+}
+
 interface _DiskResponseItem {
   used: number;
   available: number;
