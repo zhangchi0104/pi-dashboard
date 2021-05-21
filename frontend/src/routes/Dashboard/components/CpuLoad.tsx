@@ -13,6 +13,8 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(1),
   },
 }));
+
+const useCpuLoadState = () => {};
 const CpuLoad = () => {
   const classes = useStyles();
   return (

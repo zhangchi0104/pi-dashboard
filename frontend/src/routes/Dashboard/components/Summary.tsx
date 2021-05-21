@@ -75,7 +75,7 @@ const Summary = () => {
             Disk Used
           </Typography>
           <Typography variant="h6" align="center">
-            {metaInfo?.diskUsage + '%' || 'Loading'}
+            {metaInfo?.diskUsage ? metaInfo.diskUsage + '%' : 'Loading'}
           </Typography>
         </div>
       </Paper>

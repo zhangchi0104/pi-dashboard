@@ -34,6 +34,8 @@ export const fetchMetaInfo = createAsyncThunk<
   }
 });
 
+export const fetchCpuInfo = createAsyncThunk 
+
 interface SliceType {
   metaInfo: MetaInfo | null;
   chartsInfo: {
