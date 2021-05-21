@@ -1,4 +1,5 @@
 import Router from '@koa/router';
+import { stringify } from 'querystring';
 import {
   cpu,
   cpuCurrentSpeed,
@@ -16,7 +17,7 @@ const router = new Router({
  * cpu temperature
  * cpu speed
  */
-router.get('/', async (ctx, next)=> {
+router.get('/', async (ctx, next) => {
   try {
     const allInfo = await Promise.all([
       cpu(),
@@ -46,11 +47,31 @@ router.get('/', async (ctx, next)=> {
     };
     ctx.response.body = resp;
   } catch (err) {
-    ctx.throw(JSON.stringify({error: 'Unkown error'}), 500);
+    ctx.throw(JSON.stringify({ error: err.message }), 500);
     console.log(err.msg);
   } finally {
-    next();
+    await next();
   }
 });
+
+router.get('/load', async (ctx, next) => {
+  try {
+    const [speed, temperature, load] = await Promise.all([
+      cpuCurrentSpeed(),
+      cpuTemperature(),
+      currentLoad()
+    ])
+    ctx.response.body = {
+      clockSpeed: speed.avg,
+      temperature: temperature.main,
+      load: load.currentLoad
+    }
+  } catch (err) {
+    ctx.throw(JSON.stringify({ error: err.message }), 500)
+    console.log(err.msg)
+  } finally {
+    await next()
+  }
+})
 
 export default router.routes();

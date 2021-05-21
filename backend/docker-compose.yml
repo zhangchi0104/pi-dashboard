@@ -11,5 +11,4 @@ services:
     network_mode: host
     volumes:
       - './src:/app/src'
-      - '/etc:/hostfs/etc:ro'
     env_file: dev.env

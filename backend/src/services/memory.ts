@@ -33,5 +33,18 @@ memoryService.get('/', async (ctx, next) => {
     next();
   }
 });
+memoryService.get('/load', async (ctx, next) => {
+  try {
+    const { total, active } = await mem()
+    ctx.response.body = {
+      used: active / total * 100
+    }
+  } catch (err) {
+    ctx.throw(JSON.stringify({ error: err.message }), 500);
+    console.log(err)
+  } finally {
+    await next()
+  }
 
+})
 export default memoryService.routes();
