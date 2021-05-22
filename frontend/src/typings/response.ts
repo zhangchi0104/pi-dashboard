@@ -25,7 +25,19 @@ export interface CpuResponse {
       system: number;
       idle: number;
     }[];
-  }
+  };
+}
+
+export interface CpuLoadResponse {
+  clockSpeed: number,
+  temperature: number,
+  load: number
+}
+
+export interface MemLoadResponse {
+  used: number;
+  usedPercent: number;
+  bufferCache: number;
 }
 
 interface _DiskResponseItem {

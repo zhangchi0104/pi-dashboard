@@ -1,14 +1,8 @@
-import { DiskResponse } from '@/typings/response';
+import { CpuResponse, DiskResponse, CpuLoadResponse, MemoryResponse, MemLoadResponse } from '@/typings/response';
 import { MetaResponse } from '@/typings/response';
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { TypedThunkApi } from './store';
-interface MetaInfo {
-  uptime: number;
-  ipAddr: string;
-  diskType: string;
-  diskUsage: number;
-}
+import { MetaInfo, SliceType } from './typings'
 
 export const fetchMetaInfo = createAsyncThunk<
   MetaInfo,
@@ -34,31 +28,55 @@ export const fetchMetaInfo = createAsyncThunk<
   }
 });
 
-export const fetchCpuInfo = createAsyncThunk 
-
-interface SliceType {
-  metaInfo: MetaInfo | null;
-  chartsInfo: {
-    data: {
-      cpu: number[];
-      memory: number[];
-    };
-    cpuInterval: number | null;
-    memInterval: number | null;
-  };
-}
+export const fetchCpuInfo = createAsyncThunk<
+  CpuResponse,
+  void,
+  TypedThunkApi
+>('dashboard/fetchCpuInfo', async (action, thunkApi) => {
+  try {
+    const resp = await thunkApi.extra.client.get('/cpu');
+    return resp.data as CpuResponse;
+  } catch (err) {
+    return thunkApi.rejectWithValue(err.message)
+  }
+});
+export const fetchCpuLoad = createAsyncThunk<CpuLoadResponse, void, TypedThunkApi>(
+  'dashboard/fetchCpuLoad', async (action, thunkApi) => {
+    try {
+      const resp = await thunkApi.extra.client.get('/cpu/load');
+      return resp.data as CpuLoadResponse
+    } catch (err) {
+      return thunkApi.rejectWithValue(err.message)
+    }
+  }
+)
+export const fetchMemoryInfo = createAsyncThunk<MemoryResponse, void, TypedThunkApi>('dashboard/fetchMemoryInfo', async (action, thunkApi) => {
+  try {
+    const resp = await thunkApi.extra.client.get('/memory');
+    return resp.data as MemoryResponse
+  } catch (err) {
+    return thunkApi.rejectWithValue(err.message)
+  }
+})
+export const fetchMemoryLoad = createAsyncThunk<MemLoadResponse, void, TypedThunkApi>('dashboard/fetchMemoryLoad', async (action, thunkApi) => {
+  try {
+    const resp = await thunkApi.extra.client.get('/memory');
+    return resp.data as MemLoadResponse
+  } catch (err) {
+    return thunkApi.rejectWithValue(err.message)
+  }
+})
 
 const initialState: SliceType = {
   metaInfo: null,
-  chartsInfo: {
-    data: {
-      cpu: [],
-      memory: [],
-    },
-    memInterval: null,
-    cpuInterval: null,
-  },
+  cpuInfo: null,
+  memInfo: null,
+  chartsData: {
+    cpu: [],
+    memory: []
+  }
 };
+
 const dashboardSlice = createSlice({
   name: 'dashboard',
   initialState: initialState,
@@ -67,7 +85,36 @@ const dashboardSlice = createSlice({
     builder.addCase(fetchMetaInfo.fulfilled, (state, action) => {
       state.metaInfo = action.payload;
     });
+    builder.addCase(fetchCpuInfo.fulfilled, (state, action) => {
+      state.cpuInfo = {
+        clockSpeed: action.payload.clockSpeed,
+        cores: action.payload.coreCount,
+        load: action.payload.load.total,
+        temperature: action.payload.temperature,
+      }
+    })
+    builder.addCase(fetchCpuLoad.fulfilled, (state, action) => {
+      state.cpuInfo!.temperature = action.payload.temperature;
+      state.cpuInfo!.clockSpeed = action.payload.clockSpeed;
+      state.cpuInfo!.load = action.payload.load
+    })
+    builder.addCase(fetchMemoryInfo.fulfilled, (state, action) => {
+      const res = action.payload;
+      state.memInfo = {
+        bufferCached: res.bufferCache,
+        swapTotal: res.swapTotal,
+        swapUsed: res.swapUsed,
+        total: res.total,
+        usedPercent: res.usedPercent
+      }
+    })
+    builder.addCase(fetchMemoryLoad.fulfilled, (state, action) => {
+      const res = action.payload
+      state.memInfo!.usedPercent = res.usedPercent;
+      state.memInfo!.bufferCached = res.bufferCache;
+    })
   },
+
 });
 
 export default dashboardSlice.reducer;
