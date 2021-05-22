@@ -60,3 +60,8 @@ export interface MetaResponse {
   username: string,
   uptime: number
 }
+
+export interface LoadsChartResponse {
+  memory: number,
+  cpu: number
+}

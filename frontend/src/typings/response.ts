@@ -25,7 +25,7 @@ export interface CpuResponse {
       system: number;
       idle: number;
     }[];
-  };
+  }
 }
 
 export interface CpuLoadResponse {
@@ -49,7 +49,7 @@ interface _DiskResponseItem {
 
 }
 export interface DiskResponse {
-  usages: _DiskResponseItem[],
+  usage: _DiskResponseItem[],
   type: string,
   interface: string
 }
@@ -59,4 +59,9 @@ export interface MetaResponse {
   ipAddr: string,
   username: string,
   uptime: number
+}
+
+export interface LoadsChartResponse {
+  memory: number,
+  cpu: number
 }
