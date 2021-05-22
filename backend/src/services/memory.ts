@@ -2,16 +2,16 @@
 
 import Router from '@koa/router';
 import { mem } from 'systeminformation';
-import { MemoryResponse } from '../typings/response';
+
 
 const memoryService = new Router({ prefix: '/memory' });
-
+const BYTES_IN_MB = 1024 * 1024;
+const toMb = (v: number) => v / BYTES_IN_MB;
 memoryService.get('/', async (ctx, next) => {
-  const BYTES_IN_MB = 1024 * 1024;
+
   try {
     const memInfoRaw = await mem();
     const { total, free, active, swapused, swaptotal, cached, buffcache } = memInfoRaw;
-    const toMb = (v: number) => v / BYTES_IN_MB;
     const percentages = {
       free: (free / total) * 100,
       used: (active / total) * 100,
@@ -35,9 +35,11 @@ memoryService.get('/', async (ctx, next) => {
 });
 memoryService.get('/load', async (ctx, next) => {
   try {
-    const { total, active } = await mem()
+    const { total, active, buffcache } = await mem()
     ctx.response.body = {
-      used: active / total * 100
+      usedPercent: active / total * 100,
+      used: toMb(active),
+      bufferCache: toMb(buffcache)
     }
   } catch (err) {
     ctx.throw(JSON.stringify({ error: err.message }), 500);

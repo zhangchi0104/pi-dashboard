@@ -35,7 +35,9 @@ export interface CpuLoadResponse {
 }
 
 export interface MemLoadResponse {
-  used: number
+  used: number;
+  usedPercent: number;
+  bufferCache: number;
 }
 
 interface _DiskResponseItem {
