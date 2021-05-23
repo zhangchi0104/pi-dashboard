@@ -50,7 +50,7 @@ interface _DiskResponseItem {
   mountPoint: string;
 }
 export interface DiskResponse {
-  usage: _DiskResponseItem[];
+  usages: _DiskResponseItem[];
   type: string;
   interface: string;
 }
