@@ -1,3 +1,5 @@
+/** @format */
+
 export interface MemoryResponse {
   total: number;
   used: number;
@@ -25,13 +27,13 @@ export interface CpuResponse {
       system: number;
       idle: number;
     }[];
-  }
+  };
 }
 
 export interface CpuLoadResponse {
-  clockSpeed: number,
-  temperature: number,
-  load: number
+  clockSpeed: number;
+  temperature: number;
+  load: number;
 }
 
 export interface MemLoadResponse {
@@ -46,22 +48,21 @@ interface _DiskResponseItem {
   total: number;
   usedPercent: number;
   mountPoint: string;
-
 }
 export interface DiskResponse {
-  usage: _DiskResponseItem[],
-  type: string,
-  interface: string
+  usage: _DiskResponseItem[];
+  type: string;
+  interface: string;
 }
 
 export interface MetaResponse {
-  os: string,
-  ipAddr: string,
-  username: string,
-  uptime: number
+  os: string;
+  ipAddr: string;
+  username: string;
+  uptime: number;
 }
 
 export interface LoadsChartResponse {
-  memory: number,
-  cpu: number
+  memory: (string | number)[];
+  cpu: (string | number)[];
 }

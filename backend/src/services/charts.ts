@@ -1,22 +1,26 @@
+/** @format */
+
 import Router from '@koa/router';
-import { mem, currentLoad } from 'systeminformation'
+import dayjs from 'dayjs';
+import { mem, currentLoad } from 'systeminformation';
 const chartsService = new Router({
-  prefix: '/charts'
+  prefix: '/charts',
 });
 
 chartsService.get('/loads', async (ctx, next) => {
   try {
-    const [memResp, loadResp] = await Promise.all([mem(), currentLoad()])
+    const [memResp, loadResp] = await Promise.all([mem(), currentLoad()]);
+    const nowTimeStr = dayjs().format('YYYY/MM/DD HH:mm:ss');
     const res = {
-      memory: memResp.active / memResp.total * 100,
-      cpu: loadResp.currentLoad
-    }
+      memory: [nowTimeStr, (memResp.active / memResp.total) * 100],
+      cpu: [nowTimeStr, loadResp.currentLoad],
+    };
     ctx.response.body = res;
   } catch (err) {
-    ctx.throw(JSON.stringify({ error: err.message }), 500)
+    ctx.throw(JSON.stringify({ error: err.message }), 500);
   } finally {
     await next();
   }
-})
+});
 
-export default chartsService.routes()
+export default chartsService.routes();
