@@ -2,7 +2,8 @@ import Router from '@koa/router';
 import os from 'os'
 import { exec } from 'child_process';
 const router = new Router({
-  prefix: '/meta'
+  prefix: '/meta',
+  
 })
 
 interface OSRelease {

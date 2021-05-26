@@ -9,7 +9,7 @@
     "lint": "eslint src --ext .ts",
     "build": "tsc",
     "prestart": "yarn build && yarn lint --fix",
-    "start": "node build/index.js",
+    "start": "sudo node build/index.js",
     "build-image": "sudo docker build  -t zhangchi0104/piconsole:latest ."
   },
   "author": "Alex Zhang",
@@ -30,6 +30,7 @@
   },
   "dependencies": {
     "@koa/router": "^10.0.0",
+    "axios": "^0.21.1",
     "dayjs": "^1.10.4",
     "koa": "^2.13.1",
     "koa-bodyparser": "^4.3.0",
