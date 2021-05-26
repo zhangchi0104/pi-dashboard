@@ -3,7 +3,7 @@ import CpuLoad from './components/CpuLoad';
 import Summary from './components/Summary';
 import MemoryLoad from './components/MemoryLoad';
 import Grid from '@material-ui/core/Grid';
-import LoadingChart from './components/LoadingChart';
+import LoadsChart from './components/LoadsChart';
 const useStyles = makeStyles((theme) => ({
   vsplit: {
     display: 'flex',
@@ -33,7 +33,7 @@ const Dashboard = () => {
             <MemoryLoad />
           </Grid>
           <Grid item xs={12}>
-            <LoadingChart />
+            <LoadsChart />
           </Grid>
         </Grid>
       </Grid>

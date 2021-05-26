@@ -6,10 +6,10 @@ export interface MetaInfo {
 }
 
 export interface CpuInfo {
-  load: number,
-  temperature: number,
-  clockSpeed: number,
-  cores: number
+  load: number;
+  temperature: number;
+  clockSpeed: number;
+  cores: number;
 }
 
 export interface MemoryInfo {
@@ -24,7 +24,7 @@ export interface SliceType {
   cpuInfo: CpuInfo | null;
   memInfo: MemoryInfo | null;
   chartsData: {
-    cpu: number[],
-    memory: number[]
-  }
+    cpu: (number | string)[][];
+    memory: (number | string)[][];
+  };
 }
