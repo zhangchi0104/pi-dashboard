@@ -5,4 +5,4 @@ dayjs.extend(duration);
 function getDurationStr(seconds: number) {
   return dayjs.duration(seconds, 'seconds').asDays().toFixed(0) + ' days';
 }
-export { getDurationStr }
+export { getDurationStr };

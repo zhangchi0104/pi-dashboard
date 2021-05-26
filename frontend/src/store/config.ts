@@ -6,7 +6,7 @@ const configSlice = createSlice({
     url: '192.168.50.26',
     port: 3000,
     token: '',
-    apiPath: '/api/v1'
+    apiPath: '/api/v1',
   },
   reducers: {
     setUrl: (state, action: PayloadAction<string>) => {
