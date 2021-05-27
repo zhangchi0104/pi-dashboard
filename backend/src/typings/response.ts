@@ -66,3 +66,17 @@ export interface LoadsChartResponse {
   memory: (string | number)[];
   cpu: (string | number)[];
 }
+
+export interface ContainerListSummaryResponse {
+  id: string;
+  name: string;
+  created: number;
+  status: string;
+  ports: {
+    IP: string;
+    PrivatePort: string;
+    PublicPort: string;
+    Type: String;
+  }[];
+  service: String | null;
+}

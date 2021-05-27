@@ -4,11 +4,11 @@ version: '3.8'
 
 services:
   server:
-    user: '1000:1000'
     build:
       context: .
       dockerfile: Dockerfile.dev
     network_mode: host
     volumes:
       - './src:/app/src'
+      - '/var/run/docker.sock'
     env_file: dev.env
