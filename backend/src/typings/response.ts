@@ -67,7 +67,7 @@ export interface LoadsChartResponse {
   cpu: (string | number)[];
 }
 
-export interface ContainerListSummaryResponse {
+interface ContainerListSummaryResponseItem {
   id: string;
   name: string;
   created: number;
@@ -80,3 +80,5 @@ export interface ContainerListSummaryResponse {
   }[];
   service: String | null;
 }
+
+export type ContainerListSummaryResponse = ContainerListSummaryResponseItem[];
