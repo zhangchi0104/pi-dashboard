@@ -1,3 +1,5 @@
+import { ContainerListSummaryResponse } from '@/typings/response';
+
 export interface MetaInfo {
   uptime: number;
   ipAddr: string;
@@ -27,4 +29,5 @@ export interface SliceType {
     cpu: (number | string)[][];
     memory: (number | string)[][];
   };
+  containerInfo: ContainerListSummaryResponse;
 }

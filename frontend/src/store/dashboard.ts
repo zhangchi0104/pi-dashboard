@@ -5,9 +5,12 @@ import {
   MemoryResponse,
   MemLoadResponse,
 } from '@/typings/response';
-import { MetaResponse, LoadsChartResponse } from '@/typings/response';
+import {
+  MetaResponse,
+  LoadsChartResponse,
+  ContainerListSummaryResponse,
+} from '@/typings/response';
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { memo } from 'react';
 import { TypedThunkApi } from './store';
 import { MetaInfo, SliceType } from './typings';
 
@@ -94,6 +97,21 @@ export const fetchChartData = createAsyncThunk<
     return thunkApi.rejectWithValue(err.message);
   }
 });
+
+export const fetchContainerInfo = createAsyncThunk<
+  ContainerListSummaryResponse,
+  void,
+  TypedThunkApi
+>('dashboard/fetchContainerSummary', async (action, thunkApi) => {
+  try {
+    const resp = await thunkApi.extra.client.get(
+      '/docker/containers/?verbose=false'
+    );
+    return resp.data as ContainerListSummaryResponse;
+  } catch (err) {
+    return thunkApi.rejectWithValue(err.message);
+  }
+});
 const initialState: SliceType = {
   metaInfo: null,
   cpuInfo: null,
@@ -102,6 +120,7 @@ const initialState: SliceType = {
     cpu: [],
     memory: [],
   },
+  containerInfo: [],
 };
 
 const dashboardSlice = createSlice({
@@ -150,6 +169,9 @@ const dashboardSlice = createSlice({
 
       state.chartsData.cpu.push(cpu);
       state.chartsData.memory.push(memory);
+    });
+    builder.addCase(fetchContainerInfo.fulfilled, (state, action) => {
+      state.containerInfo = action.payload;
     });
   },
 });

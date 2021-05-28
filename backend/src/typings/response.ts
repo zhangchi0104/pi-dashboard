@@ -73,12 +73,12 @@ interface ContainerListSummaryResponseItem {
   created: number;
   status: string;
   ports: {
-    IP: string;
-    PrivatePort: string;
-    PublicPort: string;
-    Type: String;
+    IP?: string;
+    PrivatePort: number;
+    PublicPort?: number;
+    Type: string;
   }[];
-  service: String | null;
+  service: string | null;
 }
 
 export type ContainerListSummaryResponse = ContainerListSummaryResponseItem[];
