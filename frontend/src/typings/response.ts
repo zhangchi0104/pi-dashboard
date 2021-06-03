@@ -67,7 +67,7 @@ export interface LoadsChartResponse {
   cpu: (string | number)[];
 }
 
-interface ContainerListSummaryResponseItem {
+export interface ContainerListSummaryResponseItem {
   id: string;
   name: string;
   created: number;
