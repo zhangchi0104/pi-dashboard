@@ -4,6 +4,10 @@
   "private": true,
   "dependencies": {
     "@babel/core": "7.12.3",
+    "@fortawesome/fontawesome-svg-core": "^1.2.35",
+    "@fortawesome/free-brands-svg-icons": "^5.15.3",
+    "@fortawesome/free-solid-svg-icons": "^5.15.3",
+    "@fortawesome/react-fontawesome": "^0.1.14",
     "@material-ui/core": "^4.11.4",
     "@material-ui/icons": "^4.11.2",
     "@pmmmwh/react-refresh-webpack-plugin": "0.4.3",
@@ -77,6 +81,7 @@
     "ts-pnp": "1.2.0",
     "typescript": "^4.1.2",
     "url-loader": "4.1.1",
+    "uuid": "^8.3.2",
     "web-vitals": "^1.0.1",
     "webpack": "4.44.2",
     "webpack-dev-server": "3.11.1",
@@ -164,6 +169,7 @@
     ]
   },
   "devDependencies": {
-    "@types/react-router-dom": "^5.1.7"
+    "@types/react-router-dom": "^5.1.7",
+    "@types/uuid": "^8.3.0"
   }
 }

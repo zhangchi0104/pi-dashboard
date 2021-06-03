@@ -11,6 +11,9 @@ import { makeStyles } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 import SettingsIcon from '@material-ui/icons/Settings';
 import { useHistory } from 'react-router';
+import SvgIcon from '@material-ui/core/SvgIcon';
+import { faDocker } from '@fortawesome/free-brands-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 const useStyles = makeStyles((theme) => ({
   drawer: {
     [theme.breakpoints.up('md')]: {
@@ -23,6 +26,9 @@ const useStyles = makeStyles((theme) => ({
   },
   divider: {
     margin: theme.spacing(1, 0),
+  },
+  faIcon: {
+    fontSize: '1.5em',
   },
 }));
 const AppDrawer = () => {
@@ -52,6 +58,16 @@ const AppDrawer = () => {
             <HomeIcon />
           </ListItemIcon>
           <ListItemText>Dashboard</ListItemText>
+        </ListItem>
+        <ListItem
+          button
+          className={classes.listItem}
+          onClick={() => redirect('/docker')}
+        >
+          <ListItemIcon aria-label="go-to-home">
+            <FontAwesomeIcon icon={faDocker} className={classes.faIcon} />
+          </ListItemIcon>
+          <ListItemText>Docker</ListItemText>
         </ListItem>
         <Divider className={classes.divider} />
         <ListItem button onClick={() => redirect('/settings')}>

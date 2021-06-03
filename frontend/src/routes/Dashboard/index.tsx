@@ -4,6 +4,7 @@ import Summary from './components/Summary';
 import MemoryLoad from './components/MemoryLoad';
 import Grid from '@material-ui/core/Grid';
 import LoadsChart from './components/LoadsChart';
+import { ContainerTable } from './components/ContainerTable';
 const useStyles = makeStyles((theme) => ({
   vsplit: {
     display: 'flex',
@@ -36,6 +37,9 @@ const Dashboard = () => {
             <LoadsChart />
           </Grid>
         </Grid>
+      </Grid>
+      <Grid item xs={12}>
+        <ContainerTable />
       </Grid>
     </Grid>
   );
