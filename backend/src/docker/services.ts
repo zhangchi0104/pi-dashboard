@@ -1,23 +1,24 @@
 /** @format */
+import { execFile } from 'child_process';
+import { promisify } from 'util';
+const execShell = promisify(execFile);
+const COMMAND = 'docker-compose';
 
-import { AxiosResponse } from 'axios';
-import client from './client';
-import { makeModulePath } from './helpers';
-interface BuilderArgs<T> {
-  request: (args: T) => Promise<AxiosResponse>;
-}
-function apiBuilder<T = void>(args: BuilderArgs<T>) {
-  return async (config: T) => {
+const makeComposeAction = (action: string) => {
+  return async (path: string) => {
     try {
-      const resp = await args.request(config);
-      return resp;
+      await execShell(COMMAND, [action, '-d'], {
+        cwd: path,
+      });
+      return { success: true, message: null, exitCode: 0 };
     } catch (err) {
-      return err.response as AxiosResponse<any>;
-    }
+      return { success: false, message: err.stderr, exitCode: err.code };
+    }  
   };
-}
-const BASE_PATH = '/services';
-const modulePath = makeModulePath(BASE_PATH);
-export const list = apiBuilder({
-  request: () => client.get(modulePath('')),
-});
+};
+
+export const restart = makeComposeAction('restart');
+export const down = makeComposeAction('down');
+export const pause = makeComposeAction('pause');
+export const start = makeComposeAction('start');
+export const stop = makeComposeAction('stop');
